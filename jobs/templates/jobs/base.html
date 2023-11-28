@@ -5,14 +5,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title  %}{% endblock  %} | JobZoom</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
-    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+    <link rel="stylesheet" href="{% static 'css/app.min.css' %}">
 </head>
-<body>
+<body class="bg-slate-100">
 
-    <div>
-        {% include "jobs/navbar.html" %}
-        <main class="container">
+    <div class="flex flex-col min-h-screen">
+        <div>
+            {% include "jobs/navbar.html" %}
+            <section class="max-w-7xl mx-auto py-12">
+                <h1 class="text-5xl font-semibold text-center text-slate-900">Ampliando Horizontes de Carreira para Todos</h1>
+                <p>
+                    <div class="max-w-2xl mx-auto text-center py-6 text-slate-700 font-light">
+                        "Desde que comecei a usar o JobZoom, a busca por emprego se tornou surpreendentemente simples. 
+                        Recomendo fortemente para quem busca eficiência e ótimas vagas!" &mdash; <strong>João da Silva</strong>
+                    </div>
+                </p>
+                <div class="flex justify-between items-center py-4 mb-8 max-w-5xl mx-auto">
+                    <div>
+                        <img class="h-10" src="/media/logos/autospeed.png" alt="autospeed">
+                    </div>
+                    <div>
+                        <img class="h-10" src="/media/logos/fakery.png" alt="fakery">
+                    </div>
+                    <div>
+                        <img class="h-10" src="/media/logos/redpepper.png" alt="redpepper">
+                    </div>
+                    <div>
+                        <img class="h-10" src="/media/logos/roadlogic.png" alt="roadlogic">
+                    </div>
+                    <div>
+                        <img class="h-10" src="/media/logos/fakery.png" alt="fakery">
+                    </div>
+                    <div>
+                        <img class="h-10" src="/media/logos/spacecube.png" alt="spacecube">
+                    </div>
+                </div>
+            </section>
+        </div>
+        <main class="flex-grow bg-white">
             {% block content %}{% endblock %}
         </main>
         <footer>footer</footer>
