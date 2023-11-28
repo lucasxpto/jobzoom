@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title  %}{% endblock  %} | JobZoom</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+</head>
+<body>
+
+    <div>
+        {% include "jobs/navbar.html" %}
+        <main class="container">
+            {% block content %}{% endblock %}
+        </main>
+        <footer>footer</footer>
+    </div>
+    
+</body>
+</html>
