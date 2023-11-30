@@ -1,52 +1,78 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt-BR" data-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title  %}{% endblock  %} | JobZoom</title>
-    <link rel="stylesheet" href="{% static 'css/app.min.css' %}">
-</head>
-<body class="bg-slate-100">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {% block title %}
 
+      {% endblock %}| JobZoom
+    </title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="{% static 'css/app.min.css' %}" />
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+    <script src="{% static 'js/app.js' %}" defer></script>
+  </head>
+  <body class="bg-slate-100">
     <div class="flex flex-col min-h-screen">
-        <div>
-            {% include "jobs/navbar.html" %}
-            <section class="max-w-7xl mx-auto py-12">
-                <h1 class="text-5xl font-semibold text-center text-slate-900">Ampliando Horizontes de Carreira para Todos</h1>
-                <p>
-                    <div class="max-w-2xl mx-auto text-center py-6 text-slate-700 font-light">
-                        "Desde que comecei a usar o JobZoom, a busca por emprego se tornou surpreendentemente simples. 
-                        Recomendo fortemente para quem busca eficiência e ótimas vagas!" &mdash; <strong>João da Silva</strong>
-                    </div>
-                </p>
-                <div class="flex justify-between items-center py-4 mb-8 max-w-5xl mx-auto">
-                    <div>
-                        <img class="h-10" src="/media/logos/autospeed.png" alt="autospeed">
-                    </div>
-                    <div>
-                        <img class="h-10" src="/media/logos/fakery.png" alt="fakery">
-                    </div>
-                    <div>
-                        <img class="h-10" src="/media/logos/redpepper.png" alt="redpepper">
-                    </div>
-                    <div>
-                        <img class="h-10" src="/media/logos/roadlogic.png" alt="roadlogic">
-                    </div>
-                    <div>
-                        <img class="h-10" src="/media/logos/fakery.png" alt="fakery">
-                    </div>
-                    <div>
-                        <img class="h-10" src="/media/logos/spacecube.png" alt="spacecube">
-                    </div>
-                </div>
-            </section>
+      <div>
+        {% include 'jobs/navbar.html' %}
+        <section class="max-w-7xl mx-auto pt-6">
+          <h1 class="text-5xl font-semibold text-center text-slate-900">Ampliando Horizontes de Carreira para Todos</h1>
+          <p class="max-w-2xl mx-auto text-center py-6 text-slate-700 font-light">
+            "Desde que comecei a usar o JobZoom, a busca por emprego se tornou surpreendentemente simples. Recomendo fortemente para quem busca eficiência e ótimas vagas!" &mdash; <strong>João da Silva</strong>
+          </p>
+        </section>
+
+        <!-- Carrossel Container -->
+        <div class="swiper mySwiper max-w-4xl mx-auto mb-24">
+          <!-- Slides Wrapper -->
+          <div class="swiper-wrapper flex justify-between items-center py-4">
+            <!-- Slides -->
+            <div class="swiper-slide">
+              <img class="h-10" src="/media/logos/autospeed.png" alt="autospeed" />
+            </div>
+            <div class="swiper-slide">
+              <img class="h-10" src="/media/logos/fakery.png" alt="fakery" />
+            </div>
+            <div class="swiper-slide">
+              <img class="h-10" src="/media/logos/redpepper.png" alt="redpepper" />
+            </div>
+            <div class="swiper-slide">
+              <img class="h-10" src="/media/logos/roadlogic.png" alt="roadlogic" />
+            </div>
+            <div class="swiper-slide">
+              <img class="h-10" src="/media/logos/fakery.png" alt="fakery" />
+            </div>
+            <div class="swiper-slide">
+              <img class="h-10" src="/media/logos/spacecube.png" alt="spacecube" />
+            </div>
+          </div>
         </div>
-        <main class="flex-grow bg-white">
-            {% block content %}{% endblock %}
-        </main>
-        <footer>footer</footer>
+
+        <script>
+          window.onload = function () {
+            const swiper = new Swiper('.mySwiper', {
+              // Opções do Swiper
+              speed: 1500, // Velocidade da transição de slides
+              slidesPerView: 5, // Quantidade de slides por visualização
+              loop: true, // Ativa o loop infinito
+              autoplay: {
+                delay: 2500
+              }
+              // Adicione outras configurações que desejar
+            })
+          }
+        </script>
+      </div>
+      <main class="flex-grow bg-stone-50 pb-12">
+        {% block content %}
+
+        {% endblock %}
+      </main>
+      {% include 'jobs/footer.html' %}
     </div>
-    
-</body>
+  </body>
 </html>
