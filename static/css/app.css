@@ -41,4 +41,7 @@
       transform: translateX(-50%);
     }
   }
-  
+
+  .crediCard.seeBack {
+    transform: rotateY(-180deg);
+}
