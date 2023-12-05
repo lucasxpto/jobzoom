@@ -1,16 +1,34 @@
 <header>
     <nav class="max-w-7xl mx-auto flex justify-between items-center p-12">
         <ul>
-          <li>
-            <a href="{% url "home" %}" class="text-3xl font-bold text-accent">JobZoom</a>
-          </li>
+            <li>
+                <a href="{% url "jobs:home" %}" class="text-3xl font-bold text-accent">JobZoom</a>
+            </li>
         </ul>
         <ul class="flex items-center space-x-6">
-            <li><a class="font-semibold text-lg hover:underline text-slate-900" href="#">Vagas</a></li>
-            <li><a class="font-semibold text-lg hover:underline text-slate-900" href="#">Login</a></li>
+            <li><a class="font-semibold text-lg hover:underline text-slate-900" href="{% url 'jobs:minhas_vagas' %}">Minhas vagas</a></li>
+            {% if request.user.is_authenticated %}
+                <li>
+                    <a class="font-semibold text-lg hover:underline text-slate-900" href="{% url 'usuarios:logout' %}">Sair</a>
+                </li>
+            {% else %}
+                <li>
+                    <a class="font-semibold text-lg hover:underline text-slate-900" href="{% url 'usuarios:login' %}">Login</a>
+                </li>
+                <li>
+                    <a class="font-semibold text-lg hover:underline text-slate-900"
+                       href="{% url 'usuarios:registrar' %}">Registrar</a>
+                </li>
+
+            {% endif %}
         </ul>
-        <ul>
-          <li><a href="{% url "publicar_vaga" %}" role="button" class="btn-primary">Publicar uma Vaga</a></li>
+        <ul class="flex space-x-4 text-slate-700">
+            {% if request.user.is_authenticated %}
+                <li>
+                    Olá, <span>{{ user.get_username }}</span>
+                </li>
+            {% endif %}
+            <li><a href="{% url "jobs:publicar_vaga" %}" role="button" class="btn-primary">Publicar uma Vaga</a></li>
         </ul>
-      </nav>
+    </nav>
 </header>

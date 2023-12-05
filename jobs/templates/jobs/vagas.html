@@ -1,0 +1,59 @@
+{% extends 'jobs/base.html' %}
+{% block title %}
+    Início
+{% endblock %}
+{% block content %}
+    <article class="max-w-4xl mx-auto -mt-16 p-6">
+        <div>
+            <input type="text" id="searchbox" placeholder="procurar..."
+                   class="block w-full rounded-md border-0 px-6 py-6 text-slate-400 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-slate-400 sm:text-lg sm:leading-6"/>
+        </div>
+    </article>
+
+    <article class="max-w-4xl mx-auto p-6">
+
+        {% for vaga in vagas %}
+            <section
+                    class="bg-white flex justify-between items-center border border-slate-200 hover:border-slate-400 px-6 py-5 rounded-lg relative shadow-sm shadow-slate-100">
+                <div class="hidden sm:block border p-4 rounded-lg absolute flex-shrink-0 md:-left-12 bg-white shadow shadow-slate-100">
+                    <img src="{{ vaga.logo }}" alt="" class="w-14 h-14 object-contain rounded-lg"/>
+                </div>
+                <div class="flex items-center justify-between w-full">
+                    <div class="flex flex-col pl-10 gap-1">
+                        <p class="text-sm text-slate-600 capitalize">{{ vaga.organizacao }}</p>
+                        <p class="font-bold text-lg text-slate-900 capitalize">{{ vaga.titulo }}</p>
+                        <p class="text-sm text-slate-600">{{ vaga.tipo }}</p>
+                    </div>
+                    <div class="flex flex-col gap-4 text-slate-400 text-sm">
+                        <div class="inline-flex space-x-4">
+                            <div class="flex items-center space-x-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                     stroke-width="1.5"
+                                     stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                          d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418"></path>
+                                </svg>
+                                <span>{{ vaga.localizacao }}</span>
+                            </div>
+                            <div class="flex items-center space-x-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                     stroke-width="1.5"
+                                     stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                          d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"></path>
+                                </svg>
+                                <span class="data-format">{{ vaga.criado_em|date:'d/m/Y' }}</span>
+                            </div>
+                        </div>
+                        <div class="inline-flex space-x-4">
+                            <a class="text-accent" href="{% url 'jobs:editar_vaga' vaga.id %}">Editar</a>
+                            <a href="" class="text-accent">Visualizar</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        {% endfor %}
+
+    </article>
+
+{% endblock %}

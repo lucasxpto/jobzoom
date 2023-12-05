@@ -1,7 +1,15 @@
 from django.urls import path
+
+from jobs import views
 from jobs.views import home, publicar_vaga
+
+app_name = 'jobs'
 
 urlpatterns = [
     path('', home, name='home'),
-    path('vaga/publicar/', publicar_vaga, name='publicar_vaga'),
+    path('minhas-vagas/', views.minhas_vagas, name='minhas_vagas'),
+    path('api/vagas/', views.api_listar_vagas, name='api_listar_vagas'),
+    path('editar-vaga/<int:vaga_id>/', views.editar_vaga, name='editar_vaga'),
+    path('publicar/', publicar_vaga, name='publicar_vaga'),
+
 ]
