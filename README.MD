@@ -14,3 +14,22 @@ O trabalho consiste em criar uma aplicação web utilizando o framework Django e
 ### 1.1. Tipo de usuários
 - Empresa
 - Candidato
+
+
+Django Admin
+```
+Usuario: admin
+Senha: admin
+```
+
+Usuário Empresa
+```
+Usuario: empresa
+Senha: empresa
+```
+
+Usuário Candidato
+```
+Usuario: candidato
+Senha: candidato
+```

@@ -1,14 +1,10 @@
 {% extends 'jobs/base.html' %}
+{% load static %}
+
 {% block title %}
     Início
 {% endblock %}
 {% block content %}
-    <article class="max-w-4xl mx-auto -mt-16 p-6">
-        <div>
-            <input type="text" id="searchbox" placeholder="procurar..."
-                   class="block w-full rounded-md border-0 px-6 py-6 text-slate-400 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-slate-400 sm:text-lg sm:leading-6"/>
-        </div>
-    </article>
 
     <article class="max-w-4xl mx-auto p-6">
 
@@ -16,7 +12,11 @@
             <section
                     class="bg-white flex justify-between items-center border border-slate-200 hover:border-slate-400 px-6 py-5 rounded-lg relative shadow-sm shadow-slate-100">
                 <div class="hidden sm:block border p-4 rounded-lg absolute flex-shrink-0 md:-left-12 bg-white shadow shadow-slate-100">
+                    {% if vaga.logo %}
                     <img src="{{ vaga.logo }}" alt="" class="w-14 h-14 object-contain rounded-lg"/>
+                    {% else %}
+                    <img src="{% get_media_prefix %}/logos/sem-logo.png" alt="" class="w-14 h-14 object-contain rounded-lg"/>
+                    {% endif %}
                 </div>
                 <div class="flex items-center justify-between w-full">
                     <div class="flex flex-col pl-10 gap-1">

@@ -151,9 +151,6 @@ def minhas_vagas(request):
         messages.error(request, 'Perfil não encontrado.')
         return redirect('usuarios:registrar')
 
-    if not request.user.is_authenticated:
-        return redirect(f"{reverse('usuarios:login')}?next={request.path}")
-
     vagas = Vaga.objects.filter(usuario=request.user).order_by('criado_em').reverse()
 
     return render(request, 'jobs/vagas.html', {

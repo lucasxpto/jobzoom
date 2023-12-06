@@ -95,7 +95,7 @@
                                         <img src="{{ vaga.logo }}" alt="Logo da empresa"
                                              class="w-16 h-16 rounded-md shadow-sm"/>
                                     {% else %}
-                                        <img src="media/logos/sem-logo.png" alt="Logo da empresa"
+                                        <img src="{% get_media_prefix %}/logos/sem-logo.png" alt="Logo da empresa"
                                              class="w-16 h-16 rounded-md shadow-sm"/>
                                     {% endif %}
                                     <input type="file" name="logo" id="logo" autocomplete="logo" class="sr-only"/>
