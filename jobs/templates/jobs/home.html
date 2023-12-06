@@ -48,14 +48,14 @@
                             const vagaSection = document.createElement('section');
                             vagaSection.className = "bg-white flex justify-between items-center border border-slate-200 hover:border-slate-400 px-6 py-5 rounded-lg relative shadow-sm shadow-slate-100";
 
-                            const logoUrl = vaga.logo || 'logos/sem-logo.png';
+                            const logoUrl = vaga.logo || 'media/logos/sem-logo.png';
 
 
 
 
                             vagaSection.innerHTML = `
                             <div class="hidden sm:block border p-4 rounded-lg absolute flex-shrink-0 md:-left-12 bg-white shadow shadow-slate-100">
-                                <img src="{% get_media_prefix %}${logoUrl}" alt="" class="w-14 h-14 object-contain rounded-lg"/>
+                                <img src="https://lucaspedreira.pythonanywhere.com/${logoUrl}" alt="" class="w-14 h-14 object-contain rounded-lg"/>
                             </div>
                             <div class="flex items-center justify-between w-full">
                                 <div class="flex flex-col pl-10 gap-1">
