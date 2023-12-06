@@ -156,3 +156,10 @@ def minhas_vagas(request):
     return render(request, 'jobs/vagas.html', {
         'vagas': vagas,
     })
+
+
+def vaga(request, vaga_id):
+    vaga = get_object_or_404(Vaga, pk=vaga_id)
+    return render(request, 'jobs/vaga.html', {
+        'vaga': vaga,
+    })
