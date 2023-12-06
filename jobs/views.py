@@ -1,11 +1,18 @@
+import os
+
+from PIL import Image
+from django.conf import settings
 from django.contrib import messages
 from django.core.files.storage import FileSystemStorage
+from django.http import HttpResponse
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
 
-from jobs.models import Vaga, TipoVaga
 from usuarios.models import Perfil
+from .models import Vaga, TipoVaga
 
 
 def home(request):
@@ -88,11 +95,10 @@ def publicar_vaga(request):
 
         messages.success(request, 'Vaga criada com sucesso!')
         return redirect('jobs:editar_vaga', vaga.id)
-    return render(request, 'jobs/publicar_vaga.html', {'tipo_vaga_choices': TipoVaga.choices,})
+    return render(request, 'jobs/publicar_vaga.html', {'tipo_vaga_choices': TipoVaga.choices, })
 
 
 def editar_vaga(request, vaga_id):
-
     if not request.user.is_authenticated:
         return redirect(f"{reverse('usuarios:login')}?next={request.path}")
 
@@ -137,7 +143,6 @@ def editar_vaga(request, vaga_id):
 
 
 def minhas_vagas(request):
-
     if not request.user.is_authenticated:
         return redirect(f"{reverse('usuarios:login')}?next={request.path}")
 
@@ -163,3 +168,58 @@ def vaga(request, vaga_id):
     return render(request, 'jobs/vaga.html', {
         'vaga': vaga,
     })
+
+
+def vaga_pdf(request, vaga_id):
+    vaga = get_object_or_404(Vaga, pk=vaga_id)
+
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="{vaga.titulo}.pdf"'
+
+    p = canvas.Canvas(response, pagesize=letter)
+    width, height = letter
+
+    margem_topo = 3 / 2.54 * 72
+    altura_inicial = height - margem_topo
+
+    # Adicionando o logo da empresa ou o logo padrão
+    if vaga.logo:
+        logo_path = os.path.join(settings.MEDIA_ROOT, vaga.logo.name)
+    else:
+        logo_path = os.path.join(settings.MEDIA_ROOT, 'logos/sem-logo.png')
+
+    try:
+        image = Image.open(logo_path)
+        # Reduza o tamanho se necessário e ajuste a posição
+        p.drawInlineImage(image, 40, altura_inicial - 40, width=80, height=80)
+    except Exception as e:
+        print("Erro ao carregar a imagem: ", e)
+
+    # Adicionando o nome da empresa
+    p.setFont("Helvetica-Bold", 24)
+    p.drawString(40, altura_inicial - 80, str(vaga.usuario.perfil))
+
+    # Adicionando o título da vaga
+    p.setFont("Helvetica-Bold", 18)
+    p.drawString(40, height - 190, vaga.titulo)
+
+    # Adicionando mais detalhes da vaga
+    p.setFont("Helvetica", 12)
+    p.drawString(40, height - 220, f"Organização: {vaga.organizacao}")
+    p.drawString(40, height - 240, f"Localização: {vaga.localizacao}")
+    p.drawString(40, height - 260, f"Tipo: {vaga.get_tipo_display()}")
+    p.drawString(40, height - 280, f"Publicado em: {vaga.criado_em.strftime('%d/%m/%Y')}")
+    p.drawString(40, height - 300, f"Atualizado em: {vaga.atualizado_em.strftime('%d/%m/%Y')}")
+
+    if vaga.salario:
+        p.drawString(40, height - 340, f"Salário: {vaga.salario}")
+
+    # Adicionando a descrição da vaga
+    p.drawString(40, height - 360, "Descrição da Vaga:")
+    textobject = p.beginText(40, height - 380)
+    textobject.textLines(vaga.descricao)
+    p.drawText(textobject)
+
+    p.showPage()
+    p.save()
+    return response
