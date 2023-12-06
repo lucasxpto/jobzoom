@@ -24,12 +24,12 @@ Senha: admin
 
 Usuário Empresa
 ```
-Usuario: empresa
-Senha: empresa
+Usuario: empresaABC
+Senha: empresaABC
 ```
 
 Usuário Candidato
 ```
-Usuario: candidato
-Senha: candidato
+Usuario: candidatoRT
+Senha: candidatoRT
 ```
